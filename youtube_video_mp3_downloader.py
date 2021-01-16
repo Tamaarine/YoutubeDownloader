@@ -1,8 +1,9 @@
 from tkinter import *
 import tkinter.ttk as ttk
 import pytube as pt
-from moviepy.editor import *
+from moviepy.editor import AudioFileClip
 import threading
+import os
 
 # https://simply-python.com/2019/01/02/downloading-youtube-videos-and-converting-to-mp3/
 # reference link
@@ -46,7 +47,7 @@ class YoutubeApplication:
         self.display_label.pack()
         
         # Then we add a listbox for displayign the current song in the directory
-        self.listbox = Listbox(self.display_frame, width=150)
+        self.listbox = Listbox(self.display_frame, width=150, selectmode=SINGLE)
         self.listbox.pack(side=LEFT)
         
         # Add a scrollbar to it 
@@ -71,11 +72,11 @@ class YoutubeApplication:
         self.folder_button.pack(fill=Y, expand=True, side=LEFT)
         
         # Add a button for deleting the highlighted song
-        self.delete_song = Button(self.folder_frame, text="Delete selected song")
+        self.delete_song = Button(self.folder_frame, text="Delete selected song", command=self.delete_selected_song)
         self.delete_song.pack(side=LEFT, fill=Y, expand=True)
         
         # Add a button for deleting the entire mp3 and mp4 folder
-        self.delete_all = Button(self.folder_frame, text="Delete ALL")
+        self.delete_all = Button(self.folder_frame, text="Delete ALL", command=self.delete_all_song)
         self.delete_all.pack(side=LEFT,fill=Y, expand=True)
         
         
@@ -91,6 +92,7 @@ class YoutubeApplication:
         # Also an additional label for more expressiveness
         self.progressbar_label = Label(self.progressbar_frame, text="Awaiting for task")
         self.progressbar_label.pack()
+        
         
         
     def get_link_from_entry_video(self):
@@ -168,6 +170,8 @@ class YoutubeApplication:
             # Then we cycle through each link and download each video separately
             for link in playlist.video_urls:
                 self.download_youtube_video(link)
+                
+            self.progressbar_label.config(text="Playlist download complete")
         except:
             self.progressbar_label.config(text="Invalid link given")
         
@@ -198,6 +202,8 @@ class YoutubeApplication:
         for filename in files:
             self.listbox.insert('end', filename[filename.rindex('\\') + 1:])
         
+        # Clear any previous selection
+        self.listbox.select_set(first=-1)
     
     def browse_folder(self):
         '''
@@ -231,8 +237,40 @@ class YoutubeApplication:
         os.startfile(os.path.join(current_directory, "mp3", clicked_filename))
         
         
+    def delete_all_song(self):
+        '''
+        This function will delete all of the song in the mp3/mp4 download directory
+        '''
+        mp3files = os.listdir("./mp3")
+        mp4files = os.listdir("./mp4")
+        
+        for filename in mp3files:
+            os.remove(os.path.join("./mp3", filename))
+        for filename in mp4files:
+            os.remove(os.path.join("./mp4", filename))
+        
+        # Update the listbox again after deleting everything
+        self.fill_listbox()
+        
+        
+    def delete_selected_song(self):
+        '''
+        This function will delete the selected song
+        '''
+        selected_filename = self.listbox.get(ACTIVE)
     
-    
+        if selected_filename:
+            # Remove the selected file
+            os.remove(os.path.join(".", "mp3", selected_filename))
+            
+            # Then update the listbox again
+            self.fill_listbox()        
+            
+            
+            
+            
+        # Don't do anything if nothing is selected
+        
 # Create our basic root window
 root = Tk()
 
@@ -242,7 +280,7 @@ root.title("Youtube Downloader")
 # Puts the window in the middle of the screen
 # This stays here and not have to be in the class
 win_width = 1080
-win_height = 720
+win_height = 500
 screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
 
@@ -256,6 +294,10 @@ youtubeApp = YoutubeApplication(root)
 
 # Calling the mainloop
 root.mainloop()
+
+
+
+
 
 
 '''
