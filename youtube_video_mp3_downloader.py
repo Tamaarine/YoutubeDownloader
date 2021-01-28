@@ -292,7 +292,7 @@ root.geometry("{}x{}+{}+{}".format(win_width, win_height, x_cord, y_cord))
 # Creating our applicaiton
 youtubeApp = YoutubeApplication(root)
 
-# Calling the mainloop
+# Calling the mainloopcd
 root.mainloop()
 
 
