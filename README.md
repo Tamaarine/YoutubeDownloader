@@ -1,2 +1,13 @@
 # YoutubeDownloader
-This is just a small program for my need to download Youtube playlist/video
+This is just a small program to download Youtube playlist/video without any advertisement
+Dependencies
+------------
+>Pytube
+
+>Tkinter
+
+>Moviepy
+
+>Threading
+
+>OS
