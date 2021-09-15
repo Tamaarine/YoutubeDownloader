@@ -200,7 +200,7 @@ class YoutubeApplication:
         
         # Then updating the listbox with the new file in the directory
         for filename in files:
-            self.listbox.insert('end', filename[filename.rindex('\\') + 1:])
+            self.listbox.insert('end', filename[filename.rindex('/') + 1:])
         
         # Clear any previous selection
         self.listbox.select_set(first=-1)
