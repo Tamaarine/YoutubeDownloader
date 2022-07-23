@@ -1,18 +1,15 @@
-Package            Version
------------------- ---------
-certifi            2021.5.30
-charset-normalizer 2.0.5
-decorator          4.4.2
-idna               3.2
-imageio            2.9.0
-imageio-ffmpeg     0.4.5
-moviepy            1.0.3
-numpy              1.21.2
-Pillow             8.3.2
-pip                21.2.3
-proglog            0.1.9
-requests           2.26.0
-setuptools         57.4.0
-tqdm               4.62.2
-urllib3            1.26.6
-wheel              0.37.0
+certifi==2022.6.15
+charset-normalizer==2.1.0
+colorama==0.4.5
+decorator==4.4.2
+idna==3.3
+imageio==2.19.5
+imageio-ffmpeg==0.4.7
+moviepy==1.0.3
+numpy==1.23.1
+Pillow==9.2.0
+proglog==0.1.10
+pytube==12.1.0
+requests==2.28.1
+tqdm==4.64.0
+urllib3==1.26.10
