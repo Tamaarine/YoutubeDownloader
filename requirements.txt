@@ -11,7 +11,6 @@ numpy              1.21.2
 Pillow             8.3.2
 pip                21.2.3
 proglog            0.1.9
-pytube             11.0.1
 requests           2.26.0
 setuptools         57.4.0
 tqdm               4.62.2

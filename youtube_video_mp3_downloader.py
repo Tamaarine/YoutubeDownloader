@@ -4,6 +4,7 @@ import pytube as pt
 from moviepy.editor import AudioFileClip
 import threading
 import os
+import platform
 
 # https://simply-python.com/2019/01/02/downloading-youtube-videos-and-converting-to-mp3/
 # reference link
@@ -200,7 +201,10 @@ class YoutubeApplication:
         
         # Then updating the listbox with the new file in the directory
         for filename in files:
-            self.listbox.insert('end', filename[filename.rindex('/') + 1:])
+            if platform.system() == 'Windows':
+                self.listbox.insert('end', filename[filename.rindex('\\') + 1:])
+            else:
+                self.listbox.insert('end', filename[filename.rindex('/') + 1:])
         
         # Clear any previous selection
         self.listbox.select_set(first=-1)
